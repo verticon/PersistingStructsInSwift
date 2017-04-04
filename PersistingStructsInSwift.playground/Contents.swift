@@ -17,7 +17,7 @@ import Foundation
  Types (such as structs) announce their encodability by adopting the Encodable protocol.
  The encode method is used to store the properties of an instance of the type into a
  dictionary. The initializer is used to reconstruct an instance of the type from that
- dictionary. The initializer is failable because there is no guarantee that the disctionary
+ dictionary. The initializer is failable because there is no guarantee that the dictionary
  contains the correct properties. The initializer's parameter is optional so as to allow cleaner
  code at the call site. As we will see, it is the dictionaries that are persisted.
  */
@@ -46,10 +46,10 @@ extension Array where Element == Encodable.Properties {
 
 /*:
  ### Persistence With User Defaults
- These top level functions will save/load arrays of Encodable objecst to/from User Defaults.
+ These top level functions will save/load arrays of Encodable objects to/from User Defaults.
  */
-public func saveToUserDefaults<T:Encodable>(_ values: [T], withKey key: String) {
-    UserDefaults.standard.set(values.encode(), forKey: key)
+public func saveToUserDefaults<T:Encodable>(_ objects: [T], withKey key: String) {
+    UserDefaults.standard.set(objects.encode(), forKey: key)
 }
 
 public func loadFromUserDefaults<T:Encodable>(type: T.Type, withKey key: String) -> [T]? {
@@ -58,7 +58,7 @@ public func loadFromUserDefaults<T:Encodable>(type: T.Type, withKey key: String)
 
 /*:
  ### Persistence With Files
- These top level functions will save/load arrays of Encodable objecst to/from a file in the document directory.
+ These top level functions will save/load arrays of Encodable objects to/from a file in the document directory.
  */
 private func getUrl(forName: String) -> URL {
     return try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent(forName)
